@@ -4,11 +4,9 @@
  * and open the template in the editor.
  */
 package radic.Mochi.model;
-import java.util.List;
+
 import java.io.Serializable;
-import java.util.ArrayList;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -20,19 +18,6 @@ import javax.persistence.Table;
 @Table
 public class Zanr extends Entitet implements Serializable {
     
-    @OneToMany (mappedBy = "zanr")
-    private List<Pjesma> pjesma=new ArrayList<>();
-
-    public List<Pjesma> getPjesma() {
-        return pjesma;
-    }
-
-    public void setPjesma(List<Pjesma> pjesma) {
-        this.pjesma = pjesma;
-    }
-    
-    
-    
     private String vrsta;
 
     public String getVrsta() {
@@ -43,6 +28,10 @@ public class Zanr extends Entitet implements Serializable {
         this.vrsta = vrsta;
     }
     
+    @Override
+    public String toString() {
+       return getVrsta();
+    }
     
     
 }

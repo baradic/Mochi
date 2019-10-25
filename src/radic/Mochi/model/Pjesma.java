@@ -5,14 +5,10 @@
  */
 package radic.Mochi.model;
 
-import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,29 +21,14 @@ import javax.persistence.TemporalType;
 @Table
 public class Pjesma extends Entitet implements Serializable {
     
-    @OneToMany (mappedBy = "pjesma")
-    private List<Izvodac_pjesma> izvodac_pjesma=new ArrayList<>();
-
-    @OneToMany (mappedBy = "pjesma")
-    private List<Lista_pov> lista_pov=new ArrayList<>();
-
-    public List<Lista_pov> getLista_pov() {
-        return lista_pov;
-    }
-
-    public void setLista_pov(List<Lista_pov> lista_pov) {
-        this.lista_pov = lista_pov;
-    }
+    private String naziv;
+   
+    private String info;
     
-    
-    
-    public List<Izvodac_pjesma> getIzvodac_pjesma() {
-        return izvodac_pjesma;
-    }
-
-    public void setIzvodac_pjesma(List<Izvodac_pjesma> izvodac_pjesma) {
-        this.izvodac_pjesma = izvodac_pjesma;
-    }
+     @Temporal(TemporalType.DATE)
+    private Date datumIzdanja;
+     
+     
 
     public String getNaziv() {
         return naziv;
@@ -57,12 +38,12 @@ public class Pjesma extends Entitet implements Serializable {
         this.naziv = naziv;
     }
 
-    public Date getGodinaIzdanja() {
-        return godinaIzdanja;
+    public Date getDatumIzdanja() {
+        return datumIzdanja;
     }
 
-    public void setGodinaIzdanja(Date godinaIzdanja) {
-        this.godinaIzdanja = godinaIzdanja;
+    public void setDatumIzdanja(Date datumIzdanja) {
+        this.datumIzdanja = datumIzdanja;
     }
 
     public String getInfo() {
@@ -80,17 +61,35 @@ public class Pjesma extends Entitet implements Serializable {
     public void setZanr(Zanr zanr) {
         this.zanr = zanr;
     }
+
+    public Izvodac getIzvodac() {
+        return izvodac;
+    }
+
+    public void setIzvodac(Izvodac izvodac) {
+        this.izvodac = izvodac;
+    }
     
-    
-    
-    private String naziv;
-    
-     @Temporal(TemporalType.DATE)
-    private Date godinaIzdanja;
-    
-    private String info;
+  
     
     @ManyToOne
     private Zanr zanr;
     
+    @ManyToOne
+    private Izvodac izvodac;
+    
+     @ManyToOne
+    private Izvor izvor;
+
+    public Izvor getIzvor() {
+        return izvor;
+    }
+
+    public void setIzvor(Izvor izvor) {
+        this.izvor = izvor;
+    }
+     @Override
+    public String toString() {
+       return getNaziv();
+    }
 }

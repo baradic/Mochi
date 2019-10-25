@@ -6,7 +6,7 @@
 package radic.Mochi.controller;
 
 import java.util.List;
-import radic.Mochi.model.Izvodac;
+import org.hibernate.Query;
 import radic.Mochi.model.Pjesma;
 import radic.Mochi.pomocno.HibernateUtil;
 import radic.Mochi.pomocno.MochiException;
@@ -26,22 +26,43 @@ public class ObradaPjesma extends Obrada<Pjesma> implements ObradaSucelje<Pjesma
     public List<Pjesma> getLista() {
         return HibernateUtil.getSession().createQuery("from Pjesma").list();
     }
+    
+     public List<Pjesma> getLista(String uvjet,boolean isSelected){
+         
+         Query query = HibernateUtil.getSession().createQuery("from Pjesma a "
+                 + " where concat(a.naziv) like :uvjet")
+                 .setString("uvjet", "%" + uvjet + "%");
+         if(isSelected){
+             query.setMaxResults(50);
+         }
+         
+         return query.list();
+     }
 
     @Override
     public void kontrola(Pjesma t) throws MochiException {
-       if (t.getInfo()==null) {
-       throw new MochiException("Info nije definiran");
-       }
-       if (t.getInfo().trim().isEmpty()) {
-       throw new MochiException("Info nije unesen");
-       }
-        
+              
        if (t.getNaziv()==null) {
        throw new MochiException("Naziv nije definiran"); 
        }
        if (t.getNaziv().trim().isEmpty()) {
        throw new MochiException("Naziv nije unesen");
        }
+       if (t.getDatumIzdanja()==null) {
+       throw new MochiException("Datum izdanja nije definiran"); 
+       }
+       if (t.getIzvodac()==null) {
+       throw new MochiException("Izvođač nije definiran"); 
+       }
+       if (t.getZanr().getVrsta().equals("Odaberite žanr")) {
+       throw new MochiException("Žanr nije definiran"); 
+       }
+       if (t.getIzvor().getNaziv().equals("Odaberite izvor")) {
+       throw new MochiException("Izvor nije definiran"); 
+       }
+       
+       
+       
        
     }
 
@@ -53,9 +74,7 @@ public class ObradaPjesma extends Obrada<Pjesma> implements ObradaSucelje<Pjesma
 
     @Override
     public void obrisi(Pjesma t) throws MochiException {
-        if (!t.getIzvodac_pjesma().isEmpty()) {
-        throw new MochiException("Ne mozete obrisati pjesmu jer se koriste njezini podaci");
-        }
+
         dao.delete(t);
     }
     

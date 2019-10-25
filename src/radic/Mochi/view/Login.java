@@ -5,9 +5,13 @@
  */
 package radic.Mochi.view;
 
+import javax.swing.JOptionPane;
+import radic.Mochi.controller.ObradaKorisnik;
+import radic.Mochi.model.Korisnik;
+
 /**
  *
- * @author baradic
+ * @author Hrvoje-PC
  */
 public class Login extends javax.swing.JFrame {
 
@@ -27,24 +31,154 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        txtKorisnickoIme = new javax.swing.JTextField();
+        pwdLozinka = new javax.swing.JPasswordField();
+        btnPrijava = new javax.swing.JButton();
+        lblLogin = new javax.swing.JLabel();
+        lblOpis = new javax.swing.JLabel();
+        lblOpis2 = new javax.swing.JLabel();
+        btnRegistracija = new javax.swing.JButton();
+        lblPoruka = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Mochi");
+        setAlwaysOnTop(true);
+        setMinimumSize(new java.awt.Dimension(480, 217));
+
+        jPanel1.setMinimumSize(new java.awt.Dimension(480, 317));
+        jPanel1.setPreferredSize(new java.awt.Dimension(480, 317));
+        jPanel1.setLayout(null);
+
+        txtKorisnickoIme.setForeground(new java.awt.Color(102, 102, 102));
+        txtKorisnickoIme.setText("korisnickoime@email.com");
+        txtKorisnickoIme.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtKorisnickoImeMouseClicked(evt);
+            }
+        });
+        txtKorisnickoIme.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtKorisnickoImeActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtKorisnickoIme);
+        txtKorisnickoIme.setBounds(20, 60, 160, 20);
+
+        pwdLozinka.setForeground(new java.awt.Color(102, 102, 102));
+        pwdLozinka.setText("unesitelozinku");
+        pwdLozinka.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pwdLozinkaMouseClicked(evt);
+            }
+        });
+        jPanel1.add(pwdLozinka);
+        pwdLozinka.setBounds(20, 90, 160, 20);
+
+        btnPrijava.setText("Prijavi se");
+        btnPrijava.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrijavaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnPrijava);
+        btnPrijava.setBounds(20, 180, 100, 23);
+
+        lblLogin.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        lblLogin.setForeground(new java.awt.Color(255, 255, 255));
+        lblLogin.setText("Dobro došli !");
+        jPanel1.add(lblLogin);
+        lblLogin.setBounds(260, 30, 160, 40);
+
+        lblOpis.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblOpis.setForeground(new java.awt.Color(255, 255, 255));
+        lblOpis.setText("Login");
+        jPanel1.add(lblOpis);
+        lblOpis.setBounds(30, 10, 50, 30);
+
+        lblOpis2.setFont(new java.awt.Font("Tempus Sans ITC", 1, 50)); // NOI18N
+        lblOpis2.setForeground(new java.awt.Color(255, 255, 255));
+        lblOpis2.setText("Mochi");
+        jPanel1.add(lblOpis2);
+        lblOpis2.setBounds(240, 110, 190, 80);
+
+        btnRegistracija.setText("Registriraj se");
+        btnRegistracija.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistracijaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnRegistracija);
+        btnRegistracija.setBounds(340, 270, 130, 20);
+
+        lblPoruka.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblPoruka.setForeground(new java.awt.Color(255, 0, 51));
+        jPanel1.add(lblPoruka);
+        lblPoruka.setBounds(284, 170, 180, 20);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/radic/Mochi/view/slika_login.jpg"))); // NOI18N
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(0, 0, 480, 320);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
- 
+    private void btnPrijavaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrijavaActionPerformed
+        ObradaKorisnik oo = new ObradaKorisnik();
+        Korisnik o = oo.autoriziraj(txtKorisnickoIme.getText(), String.valueOf(pwdLozinka.getPassword()));
+        if (o != null) {
+            new Izbornik(o).setVisible(true);
+            dispose();
+        } else {
+            lblPoruka.setText("Neispravan email ili lozinka");
+            txtKorisnickoIme.setText("korisnickoime@email.com");
+            pwdLozinka.setText("..........");
+
+        }
+
+    }//GEN-LAST:event_btnPrijavaActionPerformed
+
+    private void txtKorisnickoImeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtKorisnickoImeMouseClicked
+        txtKorisnickoIme.setText("barbararadic@gmail.com");
+    }//GEN-LAST:event_txtKorisnickoImeMouseClicked
+
+    private void pwdLozinkaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pwdLozinkaMouseClicked
+        pwdLozinka.setText("b");
+    }//GEN-LAST:event_pwdLozinkaMouseClicked
+
+    private void btnRegistracijaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistracijaActionPerformed
+        new Register().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnRegistracijaActionPerformed
+
+    private void txtKorisnickoImeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKorisnickoImeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtKorisnickoImeActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnPrijava;
+    private javax.swing.JButton btnRegistracija;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblLogin;
+    private javax.swing.JLabel lblOpis;
+    private javax.swing.JLabel lblOpis2;
+    private javax.swing.JLabel lblPoruka;
+    private javax.swing.JPasswordField pwdLozinka;
+    private javax.swing.JTextField txtKorisnickoIme;
     // End of variables declaration//GEN-END:variables
 }

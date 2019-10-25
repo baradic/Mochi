@@ -21,22 +21,22 @@ import javax.persistence.Table;
 @Table
 public class Izvodac extends Entitet implements Serializable {
     
-    @OneToMany (mappedBy = "izvodac")
-    private List<Izvodac_pjesma> izvodac_pjesma=new ArrayList<>();
-
-    public List<Izvodac_pjesma> getIzvodac_pjesma() {
-        return izvodac_pjesma;
-    }
-
-    public void setIzvodac_pjesma(List<Izvodac_pjesma> izvodac_pjesma) {
-        this.izvodac_pjesma = izvodac_pjesma;
-    }
-    
-    
-    
     private String ime;
     
     private String info;
+    
+    @OneToMany(mappedBy = "izvodac")
+    private List<Pjesma> pjesme=new ArrayList<>();
+
+    public List<Pjesma> getPjesme() {
+        return pjesme;
+    }
+
+    public void setPjesme(List<Pjesma> pjesme) {
+        this.pjesme = pjesme;
+    }
+
+    
 
     public String getIme() {
         return ime;
@@ -52,6 +52,11 @@ public class Izvodac extends Entitet implements Serializable {
 
     public void setInfo(String info) {
         this.info = info;
+    }
+    
+     @Override
+    public String toString() {
+       return getIme();
     }
     
     

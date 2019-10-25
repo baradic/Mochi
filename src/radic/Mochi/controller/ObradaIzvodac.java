@@ -51,8 +51,8 @@ public class ObradaIzvodac extends Obrada<Izvodac> implements ObradaSucelje<Izvo
 
     @Override
     public void obrisi(Izvodac t) throws MochiException {
-        if (!t.getIzvodac_pjesma().isEmpty()) {
-        throw new MochiException("Ne mozete obrisati izvodaca jer se koriste njegovi podaci");
+        if (!t.getPjesme().isEmpty()) {
+        throw new MochiException("Ne mozete obrisati izvodaca jer pjeva pjesmu");
         }
         dao.delete(t);
     }

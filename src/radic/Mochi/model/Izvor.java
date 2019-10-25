@@ -6,10 +6,7 @@
 package radic.Mochi.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -20,19 +17,6 @@ import javax.persistence.Table;
 @Table
 public class Izvor extends Entitet implements Serializable {
     
-    @OneToMany (mappedBy = "izvor")
-    private List<Lista_pov> lista_pov=new ArrayList<>();
-
-    public List<Lista_pov> getLista_pov() {
-        return lista_pov;
-    }
-
-    public void setLista_pov(List<Lista_pov> lista_pov) {
-        this.lista_pov = lista_pov;
-    }
-    
-    
-    
     public String naziv;
 
     public String getNaziv() {
@@ -41,6 +25,11 @@ public class Izvor extends Entitet implements Serializable {
 
     public void setNaziv(String naziv) {
         this.naziv = naziv;
+    }
+    
+    @Override
+    public String toString() {
+       return getNaziv();
     }
     
     

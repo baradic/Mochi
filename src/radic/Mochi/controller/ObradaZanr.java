@@ -44,7 +44,7 @@ public class ObradaZanr extends Obrada<Zanr> implements ObradaSucelje<Zanr>{
 
     @Override
     public void obrisi(Zanr t) throws MochiException {
-       if (!t.getPjesma().isEmpty()) {
+       if (!t.getVrsta().isEmpty()) {
         throw new MochiException("Ne mozete obrisati zanr jer se koriste njegovi podaci");
         }
         dao.delete(t);

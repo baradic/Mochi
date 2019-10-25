@@ -44,9 +44,9 @@ public class ObradaIzvor extends Obrada<Izvor> implements ObradaSucelje<Izvor>{
 
     @Override
     public void obrisi(Izvor t) throws MochiException {
-        if (!t.getLista_pov().isEmpty()) {
-        throw new MochiException("Ne mozete obrisati izvor jer se koriste njegovi podaci");
-        }
+//        if (!t.getLista_pov().isEmpty()) {
+//        throw new MochiException("Ne mozete obrisati izvor jer se koriste njegovi podaci");
+//        }
         dao.delete(t);
     }
     
